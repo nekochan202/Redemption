@@ -7,7 +7,13 @@ public class Player : MonoBehaviour {
     public static Player Instance { get; private set; }
 
     [SerializeField] private float movingSpeed = 10f;
-
+    Vector2 inputVector;
+    [Header("Shooting")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float fireRate = 0.1f;
+    [SerializeField] private float bulletSpeed = 15f;
+    private float nextFireTime;
     private Rigidbody2D rb;
 
     private float minMovingSpeed = 0.1f;
@@ -20,6 +26,12 @@ public class Player : MonoBehaviour {
 
     }
 
+    private void Update()
+    {
+        inputVector = GameInput.Instance.GetMovementVector();
+        HandleShooting();
+    }
+
     private void FixedUpdate()
     {
         HandleMovement();
@@ -30,7 +42,7 @@ public class Player : MonoBehaviour {
 
     private void HandleMovement()
     {
-        Vector2 inputVector = GameInput.Instance.GetMovementVector();
+        
         inputVector = inputVector.normalized;
         rb.MovePosition(rb.position + inputVector * (movingSpeed * Time.fixedDeltaTime));
 
@@ -47,5 +59,22 @@ public class Player : MonoBehaviour {
     public bool IsRun()
     {
         return isRun;
+    }
+
+
+    private void HandleShooting()
+    {
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+        {
+            Shoot();
+            nextFireTime = Time.time + fireRate;
+        }
+    }
+
+    private void Shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.velocity = firePoint.right * bulletSpeed; // Движение в направлении firePoint
     }
 }
