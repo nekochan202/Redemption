@@ -6,7 +6,7 @@ public class EnemyHealth : MonoBehaviour {
     [SerializeField] private GameObject deathEffect;
 
     private float currentHealth;
-    private EnemyAI enemyAI; // —сылка на основной скрипт врага
+    private EnemyAI enemyAI; 
 
     private void Awake()
     {
