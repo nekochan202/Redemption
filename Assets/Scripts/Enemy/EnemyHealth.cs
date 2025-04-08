@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour {
     [Header("Settings")]
-    [SerializeField] private float maxHealth = 50f;
+    [SerializeField] private float maxHealth = 100f;
     [SerializeField] private GameObject deathEffect;
 
     private float currentHealth;
@@ -24,21 +24,21 @@ public class EnemyHealth : MonoBehaviour {
         }
         else
         {
-            // Дополнительные эффекты при получении урона (например, анимация)
+            // Доп эффекты
         }
     }
 
     private void Die()
     {
-        // Отключить ИИ и коллайдеры
+        
         if (enemyAI != null) enemyAI.enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
-        // Воспроизвести эффект смерти
+       
         if (deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        // Уничтожить объект через 1 секунду
-        Destroy(gameObject, 1f);
+       
+        Destroy(gameObject);
     }
 
     public bool IsDead() => currentHealth <= 0;

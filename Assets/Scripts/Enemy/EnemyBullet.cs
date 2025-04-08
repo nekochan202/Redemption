@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour {
     [Header("Настройки")]
-    [SerializeField] private float speed = 15f;    // Скорость пули
-    [SerializeField] private float damage = 10f;  // Урон
-    [SerializeField] private float lifetime = 3f; // Время жизни пули
+    [SerializeField] private float speed = 15f;    
+    [SerializeField] private float damage = 10f;  
+    [SerializeField] private float lifetime = 3f; 
     [SerializeField] private LayerMask collisionLayers;
 
     private Rigidbody2D rb;
@@ -13,11 +13,11 @@ public class EnemyBullet : MonoBehaviour {
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = direction * speed; // Задать скорость
-        Destroy(gameObject, lifetime);   // Уничтожить через время
+        rb.velocity = direction * speed; 
+        Destroy(gameObject, lifetime);   
     }
 
-    // Назначить направление (вызывается из EnemyAI)
+    // Направление
     public void SetDirection(Vector2 targetDirection)
     {
         direction = targetDirection.normalized;
@@ -29,17 +29,16 @@ public class EnemyBullet : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Проверка слоя через маску
         if (((1 << other.gameObject.layer) & collisionLayers) != 0)
         {
-            // Нанести урон игроку
+      
             if (other.CompareTag("Player"))
             {
                 PlayerHealth player = other.GetComponent<PlayerHealth>();
                 if (player != null) player.TakeDamage(damage);
             }
 
-            Destroy(gameObject); // Уничтожить пулю
+            Destroy(gameObject); 
         }
     }
 }

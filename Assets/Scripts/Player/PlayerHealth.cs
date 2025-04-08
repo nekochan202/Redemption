@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField] private float invincibilityTime = 1f; // Время неуязвимости после удара
     [SerializeField] private GameObject deathEffect;
 
+    public float MaxHealth => maxHealth;
+    public float CurrentHealth => currentHealth;
+
     private float currentHealth;
     private bool isInvincible = false;
 
@@ -18,7 +21,7 @@ public class PlayerHealth : MonoBehaviour {
     private void Awake()
     {
         currentHealth = maxHealth;
-        OnHealthChanged?.Invoke(currentHealth); // Обновить UI при старте
+        OnHealthChanged?.Invoke(currentHealth); 
     }
 
     public void TakeDamage(float damage)
@@ -26,17 +29,12 @@ public class PlayerHealth : MonoBehaviour {
         if (isInvincible) return;
 
         currentHealth -= damage;
-        OnHealthChanged?.Invoke(currentHealth); // Обновить UI
+        OnHealthChanged?.Invoke(currentHealth); 
 
-        // Проверка на смерть
+        
         if (currentHealth <= 0)
         {
             Die();
-        }
-        else
-        {
-            StartCoroutine(InvincibilityCoroutine());
-            // Дополнительные эффекты (например, мигание)
         }
     }
 
@@ -56,11 +54,10 @@ public class PlayerHealth : MonoBehaviour {
         // Эффект смерти
         if (deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        // Перезагрузка сцены или вывод Game Over
         Debug.Log("Игрок умер!");
     }
 
-    // Для лечения (опционально)
+    // Для лечения
     public void Heal(float amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
