@@ -22,4 +22,9 @@ public class GameInput : MonoBehaviour
         Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
         return inputVector;
     }
+
+    public bool IsMedKitUsed()
+    {
+        return playerInputActions.Player.UseMedKit.WasPressedThisFrame();
+    }
 }

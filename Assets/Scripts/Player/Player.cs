@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 
     private float minMovingSpeed = 0.1f;
     private bool isRun = false;
+    
 
     private void Awake()
     {
@@ -28,16 +29,20 @@ public class Player : MonoBehaviour {
 
     private void Update()
     {
-        inputVector = GameInput.Instance.GetMovementVector();
-        HandleShooting();
+            inputVector = GameInput.Instance.GetMovementVector();
+            HandleShooting();
+        if (GameInput.Instance.IsMedKitUsed())
+        {
+            GetComponent<PlayerHealth>().UseMedKit();
+        }
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
-        Vector3 diference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotateZ);
+            HandleMovement();
+            Vector3 diference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, rotateZ);       
     }
 
     private void HandleMovement()

@@ -200,7 +200,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3482395800313282143, guid: 4ea1b070e9807e54dba24e2084581bdc, type: 3}
   firePoint: {fileID: 6496258197685507026}
   fireRate: 0.1
-  bulletSpeed: 15
+  bulletSpeed: 50
 --- !u!70 &7067654921459374262
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
