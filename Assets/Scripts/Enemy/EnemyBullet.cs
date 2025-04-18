@@ -17,12 +17,12 @@ public class EnemyBullet : MonoBehaviour {
         Destroy(gameObject, lifetime);   
     }
 
-    // Направление
+    
     public void SetDirection(Vector2 targetDirection)
     {
         direction = targetDirection.normalized;
 
-        // Поворот спрайта в направлении движения
+        
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }

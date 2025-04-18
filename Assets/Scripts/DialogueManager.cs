@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public class DialogueManager : MonoBehaviour {
     [SerializeField] private GameObject dialoguePanel; // Панель диалога
     [SerializeField] private TMP_Text dialogueText;    // Текст для фраз
-    [SerializeField] private Image Image;         // Изображение 
+    [SerializeField] private Image image;         // Изображение рации
     [SerializeField] private string[] dialogueLines;   // Массив фраз
-    [SerializeField] private string nextSceneName;
+    [SerializeField] private string nextSceneName;     // Имя следующей сцены
 
     private int currentLine = 0;
     private bool isDialogueActive = false;
@@ -16,8 +16,7 @@ public class DialogueManager : MonoBehaviour {
     void Start()
     {
         dialoguePanel.SetActive(false);
-        Image.gameObject.SetActive(false);
-       
+        image.gameObject.SetActive(false);
     }
 
     void Update()
@@ -32,10 +31,10 @@ public class DialogueManager : MonoBehaviour {
     {
         isDialogueActive = true;
         dialoguePanel.SetActive(true);
-        Image.gameObject.SetActive(true);
+        image.gameObject.SetActive(true);
         currentLine = 0;
         dialogueText.text = dialogueLines[currentLine];
-        Time.timeScale = 0;
+        Time.timeScale = 0; // Останавливаем игровое время (если нужно)
     }
 
     private void ShowNextLine()
@@ -55,8 +54,23 @@ public class DialogueManager : MonoBehaviour {
     {
         isDialogueActive = false;
         dialoguePanel.SetActive(false);
-        Image.gameObject.SetActive(false);
+        image.gameObject.SetActive(false);
         Time.timeScale = 1;
+       
+        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            DataManager.Instance.PlayerHealth = (int)playerHealth.CurrentHealth;
+            DataManager.Instance.MedKits = playerHealth.CurrentMedKits;
+        }
+
+        Player player = Player.Instance;
+        if (player != null)
+        {
+            DataManager.Instance.CurrentAmmo = player.CurrentAmmo;
+            DataManager.Instance.TotalAmmo = player.TotalAmmo;
+        }
+
         SceneManager.LoadScene(nextSceneName);
     }
 }

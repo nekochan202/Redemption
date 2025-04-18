@@ -9,7 +9,6 @@ public class MedKit : MonoBehaviour {
         {
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
 
-            // ѕытаемс€ добавить аптечку. ”ничтожаем только при успехе
             if (playerHealth.AddMedKit(1))
             {
                 Destroy(gameObject);

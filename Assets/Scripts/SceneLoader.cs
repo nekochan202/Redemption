@@ -12,4 +12,13 @@ public class SceneLoader : MonoBehaviour {
 
         }
     }
+
+    private void SaveData()
+    {
+        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
+        DataManager.Instance.PlayerHealth = (int)playerHealth.CurrentHealth;
+        DataManager.Instance.MedKits = playerHealth.CurrentMedKits;
+        DataManager.Instance.CurrentAmmo = Player.Instance.CurrentAmmo;
+        DataManager.Instance.TotalAmmo = Player.Instance.TotalAmmo;
+    }
 }

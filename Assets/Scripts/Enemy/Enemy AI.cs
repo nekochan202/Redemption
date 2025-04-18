@@ -33,7 +33,14 @@ public class EnemyAI : MonoBehaviour {
     private float lastAttackTime;
     private EnemyHealth enemyHealth;
     private Vector3 startPosition; 
-    private PlayerHealth playerHealth; 
+    private PlayerHealth playerHealth;
+
+    [Header("Звуки")]
+    [SerializeField] private AudioClip footstepSound;
+    [SerializeField] private AudioClip enemyShootingSound;
+    private AudioSource movementAudioSource; 
+    private AudioSource shootingAudioSource; 
+
 
     private void Awake()
     {
@@ -46,6 +53,9 @@ public class EnemyAI : MonoBehaviour {
         navMeshAgent.updateUpAxis = false;
 
         startPosition = transform.position;
+
+        movementAudioSource = gameObject.AddComponent<AudioSource>();
+        shootingAudioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void Update()
@@ -162,6 +172,8 @@ public class EnemyAI : MonoBehaviour {
         GameObject bullet = Instantiate(enemyBulletPrefab, firePoint.position, Quaternion.identity);
         Vector2 direction = (player.position - firePoint.position).normalized;
         bullet.GetComponent<EnemyBullet>().SetDirection(direction);
+
+        shootingAudioSource.PlayOneShot(enemyShootingSound);
     }
 
     private Vector3 GetRoamingPosition()
@@ -202,8 +214,22 @@ public class EnemyAI : MonoBehaviour {
 
     private void UpdateAnimation()
     {
-        if (!animator) return;
+        if (!animator || !movementAudioSource) return;
+
         float speedNormalized = Mathf.Clamp01(navMeshAgent.velocity.magnitude / navMeshAgent.speed);
         animator.SetFloat("Speed", speedNormalized);
+
+        if (navMeshAgent.velocity.magnitude > 0.1f)
+        {
+            if (!movementAudioSource.isPlaying) 
+            {
+                movementAudioSource.clip = footstepSound;
+                movementAudioSource.Play(); 
+            }
+        }
+        else
+        {
+            movementAudioSource.Stop(); 
+        }
     }
 }

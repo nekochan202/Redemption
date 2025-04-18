@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float invincibilityTime = 1f; // ¬рем€ неу€звимости после удара
+    [SerializeField] private float invincibilityTime = 1f; 
     [SerializeField] private GameObject deathEffect;
 
     [Header("Medkits")]
@@ -23,9 +23,6 @@ public class PlayerHealth : MonoBehaviour {
     private float currentHealth;
     private bool isInvincible = false;
 
-
-
-    // —обытие дл€ обновлени€ UI (опционально)
     public delegate void HealthChangedDelegate(float health);
     public static event HealthChangedDelegate OnHealthChanged;
 
@@ -35,6 +32,22 @@ public class PlayerHealth : MonoBehaviour {
         currentMedKits = 0; 
         OnMedKitsChanged?.Invoke(currentMedKits, maxMedKits); 
         OnHealthChanged?.Invoke(currentHealth);
+    }
+
+    private void Start()
+    {
+        if (DataManager.Instance.PlayerHealth > 0)
+        {
+            currentHealth = DataManager.Instance.PlayerHealth;
+        }
+        if (DataManager.Instance.MedKits > 0)
+        {
+            currentMedKits = DataManager.Instance.MedKits;
+        }
+
+
+        OnHealthChanged?.Invoke(currentHealth);
+        OnMedKitsChanged?.Invoke(currentMedKits, maxMedKits);
     }
 
     public void TakeDamage(float damage)
@@ -60,17 +73,16 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Die()
     {
-        // ќтключить управление
+       
         GetComponent<Player>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
-        // Ёффект смерти
+       
         if (deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         Debug.Log("»грок умер!");
     }
 
-    // ƒл€ лечени€
     public void Heal(float amount)
     {
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
@@ -93,6 +105,7 @@ public class PlayerHealth : MonoBehaviour {
             Heal(healAmount);
             currentMedKits--;
             OnMedKitsChanged?.Invoke(currentMedKits, maxMedKits);
+            DataManager.Instance.PlayerHealth = (int)currentHealth;
         }
     }
 

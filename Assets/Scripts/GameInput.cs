@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameInput : MonoBehaviour
-{
+public class GameInput : MonoBehaviour {
     public static GameInput Instance { get; private set; }
 
     private PlayerInputActions playerInputActions;
@@ -16,7 +15,6 @@ public class GameInput : MonoBehaviour
         playerInputActions.Enable();
     }
 
-
     public Vector2 GetMovementVector()
     {
         Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
@@ -26,5 +24,10 @@ public class GameInput : MonoBehaviour
     public bool IsMedKitUsed()
     {
         return playerInputActions.Player.UseMedKit.WasPressedThisFrame();
+    }
+
+    public bool IsReloadPressed()
+    {
+        return Input.GetKeyDown(KeyCode.R);
     }
 }
