@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour {
     [Header("Settings")]
@@ -73,12 +74,20 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Die()
     {
-       
+        Transform visualTransform = transform.Find("PlayerVisual");
+        if (visualTransform != null)
+        {
+            visualTransform.gameObject.SetActive(false);
+        }
+
         GetComponent<Player>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
        
         if (deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+        DataManager.Instance.ResetToInitialValues();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         Debug.Log("Игрок умер!");
     }

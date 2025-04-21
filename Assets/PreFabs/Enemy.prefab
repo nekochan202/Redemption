@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  deathEffect: {fileID: 7084180240396211116, guid: 8fc06563d639adc4da5b0528dd60f218, type: 3}
+  deathEffect: {fileID: 4092999445321072223, guid: 3cbd20ba215aa114b85cfdd4ea8486aa, type: 3}
 --- !u!114 &8463379153921810307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ MonoBehaviour:
   rotationSpeed: 25
   movementThreshold: 0.1
   maxDistanceFromStart: 7
-  detectionRadius: 8
+  detectionRadius: 15
   attackRadius: 7
   attackCooldown: 0.2
   bulletSpeed: 50

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   invincibilityTime: 0
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 3721870582871800821, guid: 0fb089624fd058b49b2a84d44b8072ae, type: 3}
   maxMedKits: 3
   healAmount: 25
 --- !u!82 &4930820471721302413

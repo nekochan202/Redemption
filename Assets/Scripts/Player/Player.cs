@@ -194,4 +194,14 @@ public class Player : MonoBehaviour {
         totalAmmo += amount;
         OnAmmoChanged?.Invoke(currentAmmo, totalAmmo);
     }
+    private void OnEnable()
+    {
+        Transform visualTransform = transform.Find("PlayerVisual");
+        if (visualTransform != null)
+        {
+            visualTransform.gameObject.SetActive(true);
+        }
+
+        GetComponent<Collider2D>().enabled = true;
+    }
 }

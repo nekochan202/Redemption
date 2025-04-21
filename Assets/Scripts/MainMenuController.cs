@@ -4,13 +4,12 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour {
     public void PlayGame()
     {
-        SceneManager.LoadScene("TestLVL");
+        SceneManager.LoadScene("Level0");
     }
 
     public void LoadGame()
     {
         
-       
     }
  
     public void OpenSettings()

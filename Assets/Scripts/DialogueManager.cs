@@ -4,11 +4,11 @@ using TMPro;
 using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour {
-    [SerializeField] private GameObject dialoguePanel; // Панель диалога
-    [SerializeField] private TMP_Text dialogueText;    // Текст для фраз
-    [SerializeField] private Image image;         // Изображение рации
-    [SerializeField] private string[] dialogueLines;   // Массив фраз
-    [SerializeField] private string nextSceneName;     // Имя следующей сцены
+    [SerializeField] private GameObject dialoguePanel; 
+    [SerializeField] private TMP_Text dialogueText;    
+    [SerializeField] private Image image;         
+    [SerializeField] private string[] dialogueLines;   
+    [SerializeField] private string nextSceneName;     
 
     private int currentLine = 0;
     private bool isDialogueActive = false;
@@ -34,7 +34,7 @@ public class DialogueManager : MonoBehaviour {
         image.gameObject.SetActive(true);
         currentLine = 0;
         dialogueText.text = dialogueLines[currentLine];
-        Time.timeScale = 0; // Останавливаем игровое время (если нужно)
+        Time.timeScale = 0; 
     }
 
     private void ShowNextLine()
@@ -55,6 +55,7 @@ public class DialogueManager : MonoBehaviour {
         isDialogueActive = false;
         dialoguePanel.SetActive(false);
         image.gameObject.SetActive(false);
+        dialogueText.text = "";
         Time.timeScale = 1;
        
         PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
@@ -72,5 +73,10 @@ public class DialogueManager : MonoBehaviour {
         }
 
         SceneManager.LoadScene(nextSceneName);
+    }
+
+    public void SetTriggerToDestroy(GameObject trigger)
+    {
+        Destroy(trigger);
     }
 }
