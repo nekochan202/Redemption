@@ -21,6 +21,11 @@ public class GameInput : MonoBehaviour {
         return inputVector;
     }
 
+    public bool IsPausePressed()
+    {
+        return playerInputActions.Player.Pause.WasPressedThisFrame();
+    }
+
     public bool IsMedKitUsed()
     {
         return playerInputActions.Player.UseMedKit.WasPressedThisFrame();

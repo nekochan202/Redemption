@@ -83,29 +83,29 @@ public class EnemyAI : MonoBehaviour {
 
     private void UpdateState()
     {
-        if (playerHealth != null && playerHealth.MaxHealth > 0 && playerHealth.CurrentHealth <= 0)
+        if (playerHealth != null && playerHealth.CurrentHealth <= 0)
         {
             currentState = State.Roaming;
             return;
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        float distanceFromStart = Vector3.Distance(transform.position, startPosition);
-
         bool canSeePlayer = distanceToPlayer <= detectionRadius && HasLineOfSightToPlayer();
-        bool withinRange = distanceFromStart <= maxDistanceFromStart;
 
-        if (distanceToPlayer <= attackRadius && canSeePlayer && withinRange)
+        // Убрали проверку расстояния до стартовой позиции для реактивности
+        if (canSeePlayer)
         {
-            currentState = State.Attack;
-        }
-        else if (canSeePlayer && withinRange)
-        {
-            currentState = State.Chase;
+            currentState = distanceToPlayer <= attackRadius
+                ? State.Attack
+                : State.Chase;
         }
         else
         {
-            currentState = State.Roaming;
+            // Возвращаемся только если ушли слишком далеко
+            float distanceFromStart = Vector3.Distance(transform.position, startPosition);
+            currentState = distanceFromStart > maxDistanceFromStart
+                ? State.Roaming
+                : State.Roaming;
 
             if (distanceFromStart > maxDistanceFromStart)
             {
@@ -117,9 +117,29 @@ public class EnemyAI : MonoBehaviour {
     private bool HasLineOfSightToPlayer()
     {
         Vector2 directionToPlayer = player.position - transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, detectionRadius, obstacleLayers);
+        float distanceToPlayer = directionToPlayer.magnitude;
 
-        return hit.collider == null || hit.collider.CompareTag("Player");
+        // Игнорируем коллайдеры врагов и игрока
+        int layerMask = obstacleLayers;
+        layerMask &= ~(1 << LayerMask.NameToLayer("Enemy")); // Игнорируем слой врагов
+        layerMask &= ~(1 << LayerMask.NameToLayer("Player")); // Игнорируем слой игрока
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            transform.position,
+            directionToPlayer.normalized,
+            distanceToPlayer,
+            layerMask
+        );
+
+        // Отладочная визуализация
+        Debug.DrawLine(
+            transform.position,
+            hit.collider ? (Vector3)hit.point : player.position,
+            hit.collider ? Color.red : Color.green,
+            0.1f
+        );
+
+        return hit.collider == null;
     }
 
     private void HandleRoaming()
@@ -136,6 +156,7 @@ public class EnemyAI : MonoBehaviour {
     private void ChasePlayer()
     {
         float distanceFromStart = Vector3.Distance(transform.position, startPosition);
+        navMeshAgent.SetDestination(player.position);
         if (distanceFromStart <= maxDistanceFromStart)
         {
             navMeshAgent.SetDestination(player.position);
@@ -149,14 +170,6 @@ public class EnemyAI : MonoBehaviour {
     private void AttackPlayer()
     {
         navMeshAgent.SetDestination(transform.position);
-
-        float distanceFromStart = Vector3.Distance(transform.position, startPosition);
-        if (distanceFromStart > maxDistanceFromStart ||
-            (playerHealth != null && playerHealth.CurrentHealth <= 0))
-        {
-            currentState = State.Roaming;
-            return;
-        }
 
         if (Time.time >= lastAttackTime + attackCooldown)
         {

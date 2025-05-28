@@ -296,7 +296,7 @@ MonoBehaviour:
   roamingTimerMax: 3
   rotationSpeed: 25
   movementThreshold: 0.1
-  maxDistanceFromStart: 7
+  maxDistanceFromStart: 20
   detectionRadius: 15
   attackRadius: 7
   attackCooldown: 0.2

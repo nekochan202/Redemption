@@ -22,7 +22,10 @@ public class OldSceneDialogue : MonoBehaviour {
 
     void Update()
     {
-        if (isDialogueActive && Input.GetMouseButtonDown(0))
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
+
+        if (isDialogueActive && Input.GetKeyDown(KeyCode.E))
         {
             ShowNextLine();
         }

@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private float reloadTime = 1.2f;
     private bool isReloading = false;
 
-    [Header("�����")]
+    [Header("Audio")]
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private AudioClip shootingSound;
     [SerializeField] private AudioClip reloadSound;
@@ -73,6 +73,8 @@ public class Player : MonoBehaviour {
 
     private void Update()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
         inputVector = GameInput.Instance.GetMovementVector();
         HandleShooting();
         if (GameInput.Instance.IsMedKitUsed())
@@ -98,6 +100,8 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused)
+            return;
         HandleMovement();
         Vector3 diference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;
