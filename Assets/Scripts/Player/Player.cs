@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Player : MonoBehaviour {
 
@@ -31,6 +32,9 @@ public class Player : MonoBehaviour {
     private AudioSource shootingAudioSource;
     private AudioSource reloadAudioSource;
 
+    [Header("Audio Mixer Groups")]
+    [SerializeField] private AudioMixerGroup soundEffectsGroup;
+
     private float minMovingSpeed = 0.1f;
     private bool isRun = false;
 
@@ -51,6 +55,10 @@ public class Player : MonoBehaviour {
         movementAudioSource = gameObject.AddComponent<AudioSource>();
         shootingAudioSource = gameObject.AddComponent<AudioSource>();
         reloadAudioSource = gameObject.AddComponent<AudioSource>();
+
+        movementAudioSource.outputAudioMixerGroup = soundEffectsGroup;
+        shootingAudioSource.outputAudioMixerGroup = soundEffectsGroup;
+        reloadAudioSource.outputAudioMixerGroup = soundEffectsGroup;
 
     }
 

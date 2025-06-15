@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class OldSceneDialogue : MonoBehaviour {
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private Image image;
     [SerializeField] private string[] dialogueLines;
+
+    public event Action OnDialogueEnded;
 
     private int currentLine = 0;
     private bool isDialogueActive = false;
@@ -72,6 +75,8 @@ public class OldSceneDialogue : MonoBehaviour {
         {
             Destroy(_triggerToDestroy);
         }
+
+        OnDialogueEnded?.Invoke();
     }
 
 }

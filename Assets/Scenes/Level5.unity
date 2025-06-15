@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: footstepSound
       value: 
       objectReference: {fileID: 8300000, guid: 20058f0a523317440b109cf3cbb56803, type: 3}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: shootingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6565839e62415304e8f4e7ecf3fd86bb, type: 3}
     - target: {fileID: 3355298167828533691, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.639778
@@ -179,11 +183,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4997293382010594812, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 2556345}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+--- !u!1 &2556345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1712525907491398472, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+  m_PrefabInstance: {fileID: 2556344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &38126708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305,6 +318,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8463379153921810307, guid: 5e7ce165f10cf4848a1165d929c95568, type: 3}
+      propertyPath: enemyShootingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6565839e62415304e8f4e7ecf3fd86bb, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1991,8 +2008,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.051749945, y: 6.6031003, z: 0}
-    m_Extent: {x: 7.88805, y: 10.002001, z: 0}
+    m_Center: {x: 0.05429983, y: 6.6031494, z: 0}
+    m_Extent: {x: 7.8869, y: 10.00095, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2759,8 +2776,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.67135, y: 6.1502, z: 0}
-    m_Extent: {x: 5.78715, y: 9.0148, z: 0}
+    m_Center: {x: -0.66989994, y: 6.15805, z: 0}
+    m_Extent: {x: 5.7919, y: 9.02205, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5266,6 +5283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8463379153921810307, guid: 5e7ce165f10cf4848a1165d929c95568, type: 3}
+      propertyPath: enemyShootingSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6565839e62415304e8f4e7ecf3fd86bb, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5601,8 +5622,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.64465, y: -0.7994, z: 0}
-    m_Extent: {x: 1.10265, y: 1.8256999, z: 0}
+    m_Center: {x: 0.6364, y: -0.8088, z: 0}
+    m_Extent: {x: 1.0923, y: 1.8218, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

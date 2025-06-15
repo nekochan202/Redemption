@@ -58248,6 +58248,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: fireRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: totalAmmo
+      value: 9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: reloadTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: bulletSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: currentAmmo
+      value: 9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: maxMagazine
+      value: 9999
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: movingSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328898883645173265, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6198946802060674117, guid: 5e7ce165f10cf4848a1165d929c95568, type: 3}
     - target: {fileID: 3355298167828533691, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.42742807
@@ -58288,11 +58320,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4997293382010594812, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: maxHealth
+      value: 10000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997293382010594812, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 6693052352364114915}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+--- !u!1 &6693052352364114915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1712525907491398472, guid: e0da6289a689ead48ae496cc228f3b20, type: 3}
+  m_PrefabInstance: {fileID: 6693052352364114914}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6922306236571864397
 PrefabInstance:
   m_ObjectHideFlags: 0

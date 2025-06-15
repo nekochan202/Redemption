@@ -14,6 +14,10 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField] private float healAmount = 25f;
     private int currentMedKits;
 
+    [Header("Death Screen")]
+    [SerializeField] private GameObject deathScreen; 
+    private bool isDead = false;
+
     public int CurrentMedKits => currentMedKits;
     public int MaxMedKits => maxMedKits;
     public static event System.Action<int, int> OnMedKitsChanged;
@@ -49,11 +53,16 @@ public class PlayerHealth : MonoBehaviour {
 
         OnHealthChanged?.Invoke(currentHealth);
         OnMedKitsChanged?.Invoke(currentMedKits, maxMedKits);
+
+        if (deathScreen != null)
+        {
+            deathScreen.SetActive(false);
+        }
     }
 
     public void TakeDamage(float damage)
     {
-        if (isInvincible) return;
+        if (isInvincible || isDead) return;
 
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth);
@@ -74,6 +83,9 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         Transform visualTransform = transform.Find("PlayerVisual");
         if (visualTransform != null)
         {
@@ -83,13 +95,9 @@ public class PlayerHealth : MonoBehaviour {
         GetComponent<Player>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
-       
         if (deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
 
-        DataManager.Instance.ResetToInitialValues();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        Debug.Log("Игрок умер!");
+        if (deathScreen != null) deathScreen.SetActive(true);
     }
 
     public void Heal(float amount)
@@ -117,5 +125,18 @@ public class PlayerHealth : MonoBehaviour {
             DataManager.Instance.PlayerHealth = (int)currentHealth;
         }
     }
+    private void Update()
+    {
+        // Проверка на рестарт после смерти
+        if (isDead && Input.GetKeyDown(KeyCode.F))
+        {
+            RestartGame();
+        }
+    }
 
+    private void RestartGame()
+    {
+        DataManager.Instance.ResetToInitialValues();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

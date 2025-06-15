@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour {
@@ -39,7 +40,10 @@ public class EnemyAI : MonoBehaviour {
     [SerializeField] private AudioClip footstepSound;
     [SerializeField] private AudioClip enemyShootingSound;
     private AudioSource movementAudioSource; 
-    private AudioSource shootingAudioSource; 
+    private AudioSource shootingAudioSource;
+
+    [Header("Audio Mixer Groups")]
+    [SerializeField] private AudioMixerGroup soundEffectsGroup;
 
 
     private void Awake()
@@ -56,6 +60,9 @@ public class EnemyAI : MonoBehaviour {
 
         movementAudioSource = gameObject.AddComponent<AudioSource>();
         shootingAudioSource = gameObject.AddComponent<AudioSource>();
+
+        movementAudioSource.outputAudioMixerGroup = soundEffectsGroup;
+        shootingAudioSource.outputAudioMixerGroup = soundEffectsGroup;
     }
 
     private void Update()

@@ -21,7 +21,6 @@ public class PauseManager : MonoBehaviour {
 
     private void Start()
     {
-        // Гарантируем, что меню паузы выключено при старте
         pauseMenuUI.SetActive(false);
         IsPaused = false;
         Time.timeScale = 1f;
